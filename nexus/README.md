@@ -6,5 +6,5 @@ The Dockerfile builds and starts a Nexus Repository Proxy.
 
 ```
 docker build -t nexus .
-docker run -d -p 8081:8081 nexus
+docker run -d -p 8081:8081 --name nexus nexus
 ```
