@@ -4,20 +4,20 @@
 
 FROM centos:7
 
-MAINTAINER Marcel Birkner <marcel.birkner@codecentric.de>
+MAINTAINER Steffen Elste <steffen.elste@gmail.com>
 
 ENV JAVA_OPTS "$JAVA_OPTS -Duser.country=DE -Duser.language=de -Duser.timezone=Europe/Berlin"
 
 # Set the JAVA_HOME variable to make it clear where Java is located
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0
 
-ENV SONAR_VERSION 5.6.3
+ENV SONAR_VERSION 6.3.1
 ENV SONARQUBE_HOME /opt/sonarqube
 
 # Plugin Versions
-ENV SONAR_JAVA_PLUGIN 4.2
-ENV SONAR_WEB_PLUGIN 2.4
-ENV SONAR_SCM_GIT_PLUGIN 1.0
+ENV SONAR_JAVA_PLUGIN 4.10.0.10260
+ENV SONAR_WEB_PLUGIN 2.5.0.476
+ENV SONAR_SCM_GIT_PLUGIN 1.2
 
 RUN INSTALL_PKGS="java-1.8.0-openjdk.x86_64" && \
     yum -y --setopt=tsflags=nodocs install $INSTALL_PKGS && \
@@ -35,25 +35,25 @@ EXPOSE 9092
 RUN yum -y install unzip && yum clean all
 
 # Add SonarQube binaries from Nexus Repository
-ADD https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-${SONAR_VERSION}.zip $SONARQUBE_HOME/sonarqube-${SONAR_VERSION}.zip
+ADD https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-${SONAR_VERSION}.zip ${SONARQUBE_HOME}/sonarqube-${SONAR_VERSION}.zip
 
 # Unpack SonarQube Zip
 RUN set -x \
-	&& unzip $SONARQUBE_HOME/sonarqube-${SONAR_VERSION}.zip \
-	&& mv sonarqube-${SONAR_VERSION}/* $SONARQUBE_HOME \
-	&& rm $SONARQUBE_HOME/sonarqube-${SONAR_VERSION}.zip
+	&& unzip ${SONARQUBE_HOME}/sonarqube-${SONAR_VERSION}.zip \
+	&& mv sonarqube-${SONAR_VERSION}/* ${SONARQUBE_HOME} \
+	&& rm ${SONARQUBE_HOME}/sonarqube-${SONAR_VERSION}.zip
 
 # Add plugins
-RUN mkdir -p $SONARQUBE_HOME/extensions/plugins/
-ADD http://central.maven.org/maven2/org/sonarsource/java/sonar-java-plugin/${SONAR_JAVA_PLUGIN}/sonar-java-plugin-${SONAR_JAVA_PLUGIN}.jar $SONARQUBE_HOME/extensions/plugins/sonar-java-plugin-${SONAR_JAVA_PLUGIN}.jar
-ADD http://central.maven.org/maven2/org/sonarsource/sonar-web-plugin/sonar-web-plugin/${SONAR_WEB_PLUGIN}/sonar-web-plugin-${SONAR_WEB_PLUGIN}.jar $SONARQUBE_HOME/extensions/plugins/sonar-web-plugin-${SONAR_WEB_PLUGIN}.jar
-ADD http://central.maven.org/maven2/org/codehaus/sonar-plugins/sonar-scm-git-plugin/${SONAR_SCM_GIT_PLUGIN}/sonar-scm-git-plugin-${SONAR_SCM_GIT_PLUGIN}.jar $SONARQUBE_HOME/extensions/plugins/sonar-scm-git-plugin-${SONAR_SCM_GIT_PLUGIN}.jar
-COPY run.sh $SONARQUBE_HOME
+RUN mkdir -p ${SONARQUBE_HOME}/extensions/plugins/
+ADD https://sonarsource.bintray.com/Distribution/sonar-java-plugin/sonar-java-plugin-${SONAR_JAVA_PLUGIN}.jar ${SONARQUBE_HOME}/extensions/plugins/sonar-java-plugin-${SONAR_JAVA_PLUGIN}.jar
+ADD https://sonarsource.bintray.com/Distribution/sonar-scm-git-plugin/sonar-scm-git-plugin-${SONAR_SCM_GIT_PLUGIN}.jar ${SONARQUBE_HOME}/extensions/plugins/sonar-scm-git-plugin-${SONAR_SCM_GIT_PLUGIN}.jar
+ADD https://sonarsource.bintray.com/Distribution/sonar-web-plugin/sonar-web-plugin-${SONAR_WEB_PLUGIN}.jar ${SONARQUBE_HOME}/extensions/plugins/sonar-web-plugin-${SONAR_WEB_PLUGIN}.jar
+COPY run.sh ${SONARQUBE_HOME}
 
-WORKDIR $SONARQUBE_HOME
+WORKDIR ${SONARQUBE_HOME}
 
-VOLUME ["$SONARQUBE_HOME/data","$SONARQUBE_HOME/conf","$SONARQUBE_HOME/logs"]
+VOLUME ["${SONARQUBE_HOME}/data","${SONARQUBE_HOME}/conf","${SONARQUBE_HOME}/logs"]
 
-RUN chmod -R 777 $SONARQUBE_HOME
+RUN chmod -R 777 ${SONARQUBE_HOME}
 
 CMD ["/opt/sonarqube/run.sh"]
