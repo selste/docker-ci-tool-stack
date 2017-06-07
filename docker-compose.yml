@@ -16,6 +16,7 @@ services:
   ports:
     - "18081:8081"
     - "18443:8443"
+    - "18500:8500"
   networks:
     - prodnetwork
   volumes:
