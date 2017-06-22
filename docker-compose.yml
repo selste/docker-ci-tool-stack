@@ -22,24 +22,24 @@ services:
   volumes:
     - nexus-data:/nexus-data
 
-# jenkins:
-#  build: ./jenkins
-#  ports:
-#    - "18080:8080"
-#  networks:
-#    - prodnetwork
-#  volumes:
-#    - /var/run/docker.sock:/var/run/docker.sock
-#    - /usr/bin/docker:/usr/bin/docker
-#    - /opt/jenkins/:/var/lib/jenkins/
-#  depends_on:
-#    - nexus
-#    - gitlab
-#    - sonar
-#  environment:
-#    - NEXUS_PORT=8081
-#    - SONAR_PORT=9000
-#    - SONAR_DB_PORT=5432
+ jenkins:
+  build: ./jenkins
+  ports:
+    - "18080:8080"
+  networks:
+    - prodnetwork
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /usr/bin/docker:/usr/bin/docker
+    - /opt/jenkins/:/var/lib/jenkins/
+  depends_on:
+    - nexus
+    - gitlab
+    - sonar
+  environment:
+    - NEXUS_PORT=8081
+    - SONAR_PORT=9000
+    - SONAR_DB_PORT=5432
 
  sonar:
   build: ./sonar
