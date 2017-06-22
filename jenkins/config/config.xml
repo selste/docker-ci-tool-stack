@@ -63,4 +63,5 @@
   <label></label>
   <nodeProperties/>
   <globalNodeProperties/>
+  <noUsageStatistics>true</noUsageStatistics>
 </hudson>
