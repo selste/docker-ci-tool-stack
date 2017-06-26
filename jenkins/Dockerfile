@@ -24,8 +24,12 @@ USER jenkins
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/ref/plugins.txt
 
-# Adding default Jenkins Jobs
-COPY jobs/jee-7-demo-app.xml /usr/share/jenkins/ref/jobs/jee-7-demo-app.xml
+# Groovy script to create the 'SeedJob', will be called automagically - once - on startup
+COPY groovy/*.groovy /usr/share/jenkins/ref/init.groovy.d/
+
+# SeedJob is set up with a custom workspace, which is populated with (a) Job DSL script(s) to be executed
+RUN mkdir -p /usr/share/jenkins/ref/jobs/SeedJob/workspace
+COPY jobs/*.groovy /usr/share/jenkins/ref/jobs/SeedJob/workspace
 
 ############################################
 # Configure Jenkins
