@@ -9,7 +9,12 @@ pipelineJob('jee7-demo-app') {
   definition {
     cpsScm {
       scm {
-        git('http://gitlab/root/jee7-demo-app.git', 'master')
+        git {
+          remote {
+            url('http://gitlab/root/jee7-demo-app.git')
+          }
+          branch('master')
+        }
       }
       scriptPath('Jenkinsfile')
     }

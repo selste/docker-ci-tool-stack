@@ -18,11 +18,12 @@ external-monitor-job:1.7
 findbugs:4.70
 git-client:2.4.6
 git-server:1.7
-git:3.3.0
+git:3.3.1
 gitlab-plugin:1.4.5
 handlebars:1.1.1
 icon-shim:2.0.3
 javadoc:1.4
+job-dsl:1.63
 jquery-detached:1.2.1
 jquery:1.11.2-0
 junit:1.20
@@ -61,8 +62,10 @@ workflow-cps-global-lib:2.8
 workflow-cps:2.36
 workflow-durable-task-step:2.12
 workflow-job:2.11.1
+workflow-support:2.14
 workflow-multibranch:2.16
 workflow-scm-step:2.5
 workflow-step-api:2.11
-workflow-support:2.14
-job-dsl:1.63
+token-macro:2.1
+config-file-provider:2.16.0
+pipeline-maven:2.5.0
