@@ -126,26 +126,6 @@ To get all docker containers up and running, in __docker-ci-tool-stack__ use:
 docker-compose up
 ```
 
-## UPDATE for Linux Users
-
-### Automatically
-
-Please run **docker-compose.yml.native-docker-fix.sh** before executing **docker-compose up**.
-This will fix the Docker binary PATH, see [Issue 24](https://github.com/marcelbirkner/docker-ci-tool-stack/issues/24).
-This script patches the docker-compose.yml.
-
-### Manually
-
-Please alter Line 23 in docker-compose.yml under jenkins / volumes from
-
-- /usr/local/bin/docker:/usr/bin/docker
-
-to
-
-- /usr/bin/docker:/usr/bin/docker
-
-This is because '/usr/bin/docker' is the docker binary, see [Issue 24](https://github.com/marcelbirkner/docker-ci-tool-stack/issues/24).
-
 ## Access Tools
 
 #### With docker machine
@@ -154,7 +134,7 @@ This is because '/usr/bin/docker' is the docker binary, see [Issue 24](https://g
 | ------------- | ------------- | ------------- |
 | Jenkins | http://${docker-machine ip default}:18080/ | no login required |
 | SonarQube | http://${docker-machine ip default}:19000/ | admin/admin |
-| Nexus | http://${docker-machine ip default}:18081/nexus | admin/admin123 |
+| Nexus | http://${docker-machine ip default}:18081 | admin/admin123 |
 | GitLab | http://${docker-machine ip default}/ | root/5iveL!fe |
 | Selenium Grid | http://${docker-machine ip default}:4444/grid/console | no login required |
 | Conference App | http://${docker-machine ip default}:48080/currentSessions | no login required |
@@ -165,7 +145,7 @@ This is because '/usr/bin/docker' is the docker binary, see [Issue 24](https://g
 | ------------- | ------------- | ------------- |
 | Jenkins | http://localhost:18080/ | no login required |
 | SonarQube | http://localhost:19000/ | admin/admin |
-| Nexus | http://localhost:18081/nexus | admin/admin123 |
+| Nexus | http://localhost:18081 | admin/admin123 |
 | GitLab | http://localhost | root/5iveL!fe |
 | Selenium Grid | http://localhost:4444/grid/console | no login required |
 | Conference App | http://localhost:48080/currentSessions | no login required |

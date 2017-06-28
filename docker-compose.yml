@@ -1,16 +1,26 @@
 version: '2'
 
+#
+# [ networks definition ]
+#
 networks:
   prodnetwork:
     driver: bridge
 
+#
+# [ services definition ]
+#
 services:
  nexus:
   build: ./nexus
   ports:
     - "18081:8081"
+    - "18443:8443"
+    - "18500:8500"
   networks:
     - prodnetwork
+  volumes:
+    - nexus-data:/nexus-data
 
  jenkins:
   build: ./jenkins
@@ -20,7 +30,7 @@ services:
     - prodnetwork
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
-    - /usr/local/bin/docker:/usr/bin/docker
+    - /usr/bin/docker:/usr/bin/docker
     - /opt/jenkins/:/var/lib/jenkins/
   depends_on:
     - nexus
@@ -55,7 +65,8 @@ services:
     - /opt/postgres/data:/var/lib/postgresql/data
 
  gitlab:
-  image: gitlab/gitlab-ce:8.14.4-ce.0
+  image: gitlab/gitlab-ce:9.2.2-ce.0
+  hostname: gitlab
   restart: always
   networks:
     - prodnetwork
@@ -71,3 +82,9 @@ services:
     - /opt/gitlab/config:/etc/gitlab
     - /opt/gitlab/logs:/var/log/gitlab
     - /opt/gitlab/data:/var/opt/gitlab
+
+#
+# [ volumes definition ]
+#
+volumes:
+  nexus-data:

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.pipeline.modeldefinition.config.GlobalConfig plugin="pipeline-model-definition@1.1.7">
+  <dockerLabel></dockerLabel>
+  <registry plugin="docker-commons@1.7">
+    <url>https://nexus:8500</url>
+  </registry>
+</org.jenkinsci.plugins.pipeline.modeldefinition.config.GlobalConfig>

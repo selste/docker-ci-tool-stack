@@ -1,0 +1,5 @@
+{
+  "name": "nuget",
+  "type": "groovy",
+  "content": "repository.getRepositoryManager().delete('nuget-group'); repository.getRepositoryManager().delete('nuget-hosted'); repository.getRepositoryManager().delete('nuget.org-proxy')"
+}
