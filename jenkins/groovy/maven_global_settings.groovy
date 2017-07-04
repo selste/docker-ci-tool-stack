@@ -14,7 +14,7 @@ def configXml = """\
       <id>nexus</id>
       <mirrorOf>external:*</mirrorOf>
       <name>Maven Repository Proxy</name>
-      <url>http://nexus:8081/content/groups/public/</url>
+      <url>http://nexus:8081/repository/maven-public/</url>
     </mirror>
   </mirrors>
   <profiles>
