@@ -23,7 +23,10 @@ services:
     - nexus-data:/nexus-data
 
  jenkins:
-  build: ./jenkins
+  build:
+    context: ./jenkins
+    args:
+      DOCKER_GROUP_ID: ${DOCKER_GROUP_ID}
   ports:
     - "18080:8080"
   networks:

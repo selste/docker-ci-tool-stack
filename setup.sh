@@ -1,22 +1,11 @@
 #!/bin/sh
-#
-# Simply execute this script to setup the full toolchain:
-#
-# curl -sSL https://raw.githubusercontent.com/marcelbirkner/docker-ci-tool-stack/master/setup.sh | bash -s
-#
-# Prerequisites:
-# - Docker & Docker Toolbox v1.10
-# - Git v2.6.4
 
-echo "Create docker machine"
-docker-machine create -d virtualbox --virtualbox-memory "6000" docker-ci-tools
+# Prerequisites
+#   - Docker & Docker Compose
 
-echo "Setup environment"
-eval $(docker-machine env docker-ci-tools)
-
-echo "Checkout Git Repository"
-git clone git@github.com:marcelbirkner/docker-ci-tool-stack.git
-cd docker-ci-tool-stack
+unset DOCKER_GROUP_ID
+DOCKER_GROUP_ID=`getent group docker | cut -d: -f3`
+echo "DOCKER_GROUP_ID=${DOCKER_GROUP_ID}" > .env
 
 echo "Startup Docker Compose"
-docker-compose up
+docker-compose -f docker-compose.yml up -d --build
