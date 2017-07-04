@@ -1,3 +1,4 @@
+import jenkins.model.*
 import org.jenkinsci.lib.configprovider.model.*
 import org.jenkinsci.plugins.configfiles.GlobalConfigFiles
 import org.jenkinsci.plugins.configfiles.maven.*
