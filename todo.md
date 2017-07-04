@@ -1,4 +1,4 @@
 - [ ] Setup an SMTP Server for Jenkins to send email notifications
 - [ ] Add an JIRA to replace this todo list
-- [ ] Fix the deployment phase after the build of app
-- [ ] Install docker deamon for building docker images 
+- [x] Fix the deployment phase after the build of app
+- [x] Install docker daemon for building docker images 
