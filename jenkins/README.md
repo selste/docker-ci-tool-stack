@@ -8,7 +8,8 @@ $ docker run -d -p 8080:8080 --name jenkins jenkins
 
 To use the Docker daemon of the host - e.g. to build Docker images as a step while executing a Pipeline job - instead use:
 ```
-$ docker run -d -p 8080:8080 -v /var/run/docker/sock:/var/run/docker.sock --name jenkins jenkins
+$ docker build --build-arg DOCKER_GROUP_ID=`getent group docker | cut -d: -f3` -t jenkins .
+$ docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock --name jenkins jenkins
 ```
 
 Once Jenkins is up and running go to http://localhost:8080

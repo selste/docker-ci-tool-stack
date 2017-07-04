@@ -1,5 +1,7 @@
 FROM jenkins:2.19.4
 
+ARG DOCKER_GROUP_ID
+
 USER root
 RUN apt-get update \
       && apt-get install -y sudo curl \
@@ -13,6 +15,11 @@ RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 # see: https://wiki.jenkins-ci.org/display/JENKINS/CloudBees+Docker+Custom+Build+Environment+Plugin#CloudBeesDockerCustomBuildEnvironmentPlugin-DockerinDocker
 RUN curl -sSL -O https://get.docker.com/builds/Linux/x86_64/docker-latest.tgz && tar -xvzf docker-latest.tgz
 RUN mv docker/* /usr/local/bin/
+
+# create docker group and add jenkins to the group
+# IMPORTANT: the ID of the group has to be identical to the one used on the host system, otherwise Jenkins will not be able to access the docker daemon
+RUN groupadd -g $DOCKER_GROUP_ID docker \
+    && gpasswd -a jenkins docker
 
 # Apache Maven
 RUN curl -sSL -O http://www-eu.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz && tar -xvzf apache-maven-3.5.0-bin.tar.gz
