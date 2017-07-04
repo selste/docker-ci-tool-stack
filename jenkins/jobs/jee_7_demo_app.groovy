@@ -11,7 +11,7 @@ pipelineJob('jee7-demo-app') {
       scm {
         git {
           remote {
-            url('http://gitlab/root/jee7-demo-app.git')
+            url('http://gitlab/root/jee7-demo-app')
           }
           branch('master')
         }
