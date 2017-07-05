@@ -4,142 +4,66 @@ This GitHub repository contains Dockerfiles for running a set of Continuous Inte
 
 ![Docker CI Tools](screenshots/docker-ci-tools.png)
 
-Blog article on the CI Docker Container, https://blog.codecentric.de/en/2015/10/continuous-integration-platform-using-docker-container-jenkins-sonarqube-nexus-gitlab
-
-## Prerequisites (Mac)
-
-# With Docker Toolbox (incl. VirtualBox)
-
-You should have Docker Toolbox installed, see https://www.docker.com/toolbox
-
-I am using docker-compose to start several docker container at once.
-Since all containers run in a single VM (virtualbox), this VM needs enough memory.
-
-### Step 0 - Check Docker Machine version
-
-Ensure that you are using version 0.3.0 or greater of `docker-machine`.
-
-```
-# docker-machine version
-docker-machine version 0.8.2, build e18a919
-```
-
-### Step 1 - Start Docker Machine
-
-Start the machine, using the `--virtualbox-memory` option to increase it’s memory.
-I use 6000 MB to accommodate all the docker images.
-
-```
-# docker-machine create -d virtualbox --virtualbox-memory "6000" default
-Running pre-create checks...
-Creating machine...
-(default) Creating VirtualBox VM...
-(default) Creating SSH key...
-(default) Starting VM...
-Waiting for machine to be running, this may take a few minutes...
-Machine is running, waiting for SSH to be available...
-Detecting operating system of created instance...
-Detecting the provisioner...
-Provisioning with boot2docker...
-Copying certs to the local machine directory...
-Copying certs to the remote machine...
-Setting Docker configuration on the remote daemon...
-Checking connection to Docker...
-Docker is up and running!
-To see how to connect Docker to this machine, run: docker-machine env default
-```
-
-### Step 2 - Set Docker Machine Connection
-
-Configure shell environment to connect to your new Docker instance
-
-```
-eval "$(docker-machine env default)"
-```
-
-### Step 3 - clone Repository
-
-Clone Repository
-
-```
-git clone git@github.com:marcelbirkner/docker-ci-tool-stack.git
-cd docker-ci-tool-stack
-```
+Original blog article on the CI Docker Container, https://blog.codecentric.de/en/2015/10/continuous-integration-platform-using-docker-container-jenkins-sonarqube-nexus-gitlab
 
 
-# With Docker Mac Native
+## With Docker Linux Native
 
 If you want to use new Docker Mac Native implementation without VirtualBox and Docker Toolbox, follow these steps:
 
-### Step 0 - Install Docker Mac Native
+### Step 0 - Install Docker Linux Native
 
-Install Docker Mac Native (https://docs.docker.com/docker-for-mac/)[https://docs.docker.com/docker-for-mac/] and if you had Toolbox before, make sure to follow these steps here https://docs.docker.com/docker-for-mac/docker-toolbox/
-
-or install via __brew update__ & __brew cask install docker --force__ .
+[Install Docker Linux Native](https://docs.docker.com/engine/installation "Install Docker") and afterwards follow the steps described in https://docs.docker.com/compose/install for Docker Compose.
 
 If everything went fine, docker --version should give something like this (or a higher version number):
-
 ```
 $ docker --version
-Docker version 1.12.0, build 8eab29e
+Docker version 17.06.0-ce, build 02c1d87
 
 $ docker-compose --version
-docker-compose version 1.8.0, build f3628c7
+docker-compose version 1.14.0, build c7bdf9e
 ```
 
-If there´s also docker-machine on your machine, don´t forget to do the mentioned steps [here](https://docs.docker.com/docker-for-mac/docker-toolbox/) to remove it.
-
-### Step 1 - Create needed osxfs mountpoints
-
-Create folders (see [Issue 26](https://github.com/marcelbirkner/docker-ci-tool-stack/issues/26))
-
-* /opt/jenkins via __sudo mkdir /opt/jenkins__
-* /opt/postgres via __sudo mkdir /opt/postgres__
-* /opt/gitlab via __sudo mkdir /opt/gitlab__
-
-Change the owning user to your account, e.g. via __sudo chown yourUserName gitlab/__
-
-Then configure these folders in Docker / Preferences / File Sharing:
-
-![docker_preferences_file_sharing.png](screenshots/docker_preferences_file_sharing.png)
-
-### Step 2 - Configure correct path to docker binary
-
-Clone Repository
+### Step 1 - Clone Repository
 
 ```
-# Clone Repository and startup all docker container
+# Clone Repository
 # Option A: clone via https
-git clone https://github.com/marcelbirkner/docker-ci-tool-stack.git
+git clone https://github.com/selste/docker-ci-tool-stack.git
 
 # Option B: if you have your ssh keys configured for your GitHub account
-git clone git@github.com:marcelbirkner/docker-ci-tool-stack.git
+git clone git@github.com:selste/docker-ci-tool-stack.git
 
 cd docker-ci-tool-stack
 ```
 
-# Getting started
-
-To get all docker containers up and running, in __docker-ci-tool-stack__ use:
+### Step 2 - Build and start containers
 
 ```
-docker-compose up
+# Startup containers
+# Option A: via the provided shell script
+./setup.sh
+
+# Option B: setting an environment variable and running docker-compose up
+unset DOCKER_GROUP_ID
+export DOCKER_GROUP_ID=`getent group docker | cut -d: -f3`
+docker-compose up -d
 ```
+This is necessary because Jenkins needs to have access to the Docker daemon running on the host. Since the id for the 'docker' group is dependent on the distribution (and the method of installation) used, it is dynamically provided as a variable during image creation.
+
+In order to use Selenium for automated GUI tests, execute
+```
+docker-compose -f docker-compose-selenium.yml up -d
+```
+as well.
+
+### Step 3 - Postinstallation
+
+#### GitLab
+
+1. Jenkins is configured to create a Pipeline job on startup for a project hosted in GitLab. Login to GitLab and create a new project by cloning the demo project hosted on [GitHub](https://github.com/oraum/jee-7-demo-app "jee-7-demo-app"). Make sure the name of the project is *jee-7-demo-app* and that it is *public*.
 
 ## Access Tools
-
-#### With docker machine
-
-| *Tool* | *Link* | *Credentials* |
-| ------------- | ------------- | ------------- |
-| Jenkins | http://${docker-machine ip default}:18080/ | no login required |
-| SonarQube | http://${docker-machine ip default}:19000/ | admin/admin |
-| Nexus | http://${docker-machine ip default}:18081 | admin/admin123 |
-| GitLab | http://${docker-machine ip default}/ | root/5iveL!fe |
-| Selenium Grid | http://${docker-machine ip default}:4444/grid/console | no login required |
-| Conference App | http://${docker-machine ip default}:48080/currentSessions | no login required |
-
-#### With Docker Mac Native
 
 | *Tool* | *Link* | *Credentials* |
 | ------------- | ------------- | ------------- |
@@ -148,7 +72,6 @@ docker-compose up
 | Nexus | http://localhost:18081 | admin/admin123 |
 | GitLab | http://localhost | root/5iveL!fe |
 | Selenium Grid | http://localhost:4444/grid/console | no login required |
-| Conference App | http://localhost:48080/currentSessions | no login required |
 
 ## Screenshots
 
@@ -162,20 +85,12 @@ Here is an overview of all tools:
 
 ### Jenkins Jobs
 
-There are several jobs preconfigured in Jenkins.
+There are two Pipeline jobs preconfigured in Jenkins.
 The Jobs cover the following tasks:
+- SeedJob - this job is created via a Groovy script executed on Jenkins startup. The purpose of this job is to create *real* jobs by calling Job-DSL scripts which are located in its workspace. Currently only one job - called *jee-7-demo-app* - is created.
+- jee-7-demo-app - a Pipeline job for building the demo application.
 
-- Continuous Integration Build with Maven
-- Unit Tests
-- Static Source Analysis results are stored in SonarQube
-- JaCoCo Test Coverage
-- Deployment to Nexus
-- Jenkins Job DSL examples
-- Selenium UI Test
-
-![Conference App Jobs](screenshots/jenkins-jobs-1.png)
-
-![Conference App CI Job](screenshots/jenkins-jobs-2-conference-app-ci.png)
+![Jenkins Jobs](screenshots/jenkins.png)
 
 ### SonarQube Dashboard
 
