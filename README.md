@@ -4,9 +4,41 @@ This GitHub repository contains Dockerfiles for running a set of Continuous Inte
 
 ![Docker CI Tools](screenshots/docker-ci-tools.png)
 
-Blog article on the CI Docker Container, https://blog.codecentric.de/en/2015/10/continuous-integration-platform-using-docker-container-jenkins-sonarqube-nexus-gitlab
+Original blog article on the CI Docker Container, https://blog.codecentric.de/en/2015/10/continuous-integration-platform-using-docker-container-jenkins-sonarqube-nexus-gitlab
 
-## Prerequisites (Mac)
+
+## With Docker Linux Native
+
+If you want to use new Docker Mac Native implementation without VirtualBox and Docker Toolbox, follow these steps:
+
+### Step 0 - Install Docker Linux Native
+
+Install Docker Linux Native (https://docs.docker.com/engine/installation/)[https://docs.docker.com/engine/installation/] and afterwards follow the steps described here
+(https://docs.docker.com/compose/install/)[https://docs.docker.com/compose/install/]
+for Docker Compose.
+
+If everything went fine, docker --version should give something like this (or a higher version number):
+
+```
+$ docker --version
+Docker version 1.12.0, build 8eab29e
+
+$ docker-compose --version
+docker-compose version 1.8.0, build f3628c7
+```
+
+### Step 1 - Clone Repository
+
+```
+# Clone Repository and startup all docker container
+# Option A: clone via https
+git clone https://github.com/selste/docker-ci-tool-stack.git
+
+# Option B: if you have your ssh keys configured for your GitHub account
+git clone git@github.com:selste/docker-ci-tool-stack.git
+
+cd docker-ci-tool-stack
+```
 
 # With Docker Toolbox (incl. VirtualBox)
 
@@ -63,58 +95,6 @@ Clone Repository
 
 ```
 git clone git@github.com:marcelbirkner/docker-ci-tool-stack.git
-cd docker-ci-tool-stack
-```
-
-
-# With Docker Mac Native
-
-If you want to use new Docker Mac Native implementation without VirtualBox and Docker Toolbox, follow these steps:
-
-### Step 0 - Install Docker Mac Native
-
-Install Docker Mac Native (https://docs.docker.com/docker-for-mac/)[https://docs.docker.com/docker-for-mac/] and if you had Toolbox before, make sure to follow these steps here https://docs.docker.com/docker-for-mac/docker-toolbox/
-
-or install via __brew update__ & __brew cask install docker --force__ .
-
-If everything went fine, docker --version should give something like this (or a higher version number):
-
-```
-$ docker --version
-Docker version 1.12.0, build 8eab29e
-
-$ docker-compose --version
-docker-compose version 1.8.0, build f3628c7
-```
-
-If there´s also docker-machine on your machine, don´t forget to do the mentioned steps [here](https://docs.docker.com/docker-for-mac/docker-toolbox/) to remove it.
-
-### Step 1 - Create needed osxfs mountpoints
-
-Create folders (see [Issue 26](https://github.com/marcelbirkner/docker-ci-tool-stack/issues/26))
-
-* /opt/jenkins via __sudo mkdir /opt/jenkins__
-* /opt/postgres via __sudo mkdir /opt/postgres__
-* /opt/gitlab via __sudo mkdir /opt/gitlab__
-
-Change the owning user to your account, e.g. via __sudo chown yourUserName gitlab/__
-
-Then configure these folders in Docker / Preferences / File Sharing:
-
-![docker_preferences_file_sharing.png](screenshots/docker_preferences_file_sharing.png)
-
-### Step 2 - Configure correct path to docker binary
-
-Clone Repository
-
-```
-# Clone Repository and startup all docker container
-# Option A: clone via https
-git clone https://github.com/marcelbirkner/docker-ci-tool-stack.git
-
-# Option B: if you have your ssh keys configured for your GitHub account
-git clone git@github.com:marcelbirkner/docker-ci-tool-stack.git
-
 cd docker-ci-tool-stack
 ```
 
