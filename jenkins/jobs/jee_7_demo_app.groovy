@@ -1,4 +1,4 @@
-pipelineJob('jee7-demo-app') {
+pipelineJob('jee-7-demo-app') {
   description('Java EE 7 Pipeline Demo')
 
   logRotator {
