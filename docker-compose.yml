@@ -18,7 +18,9 @@ services:
     - "18443:8443"
     - "18500:8500"
   networks:
-    - prodnetwork
+    prodnetwork:
+      aliases:
+        - nexus
   volumes:
     - nexus-data:/nexus-data
 
@@ -30,7 +32,9 @@ services:
   ports:
     - "18080:8080"
   networks:
-    - prodnetwork
+    prodnetwork:
+      aliases:
+        - jenkins
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
     - /usr/bin/docker:/usr/bin/docker
@@ -50,7 +54,9 @@ services:
    - "19000:9000"
    - "5432:5432"
   networks:
-    - prodnetwork
+    prodnetwork:
+      aliases:
+        - sonar
   depends_on:
     - sonardb
   environment:
@@ -72,7 +78,9 @@ services:
   hostname: gitlab
   restart: always
   networks:
-    - prodnetwork
+    prodnetwork:
+      aliases:
+        - gitlab
   environment:
     GITLAB_OMNIBUS_CONFIG: |
       # external_url 'https://gitlab.example.com'
