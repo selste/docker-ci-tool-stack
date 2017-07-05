@@ -61,8 +61,7 @@ as well.
 
 #### GitLab
 
-1. A password for the *root* account hs to be set after first startup.
-2. Jenkins is configured to create a Pipeline job on startup for a project hosted in GitLab. Once the password to access GitLab has been created login and create a new project by cloning the demo project hosted on [GitHub](https://github.com/oraum/jee-7-demo-app "jee-7-demo-app"). Make sure the name of the project is *jee-7-demo-app* and that it is *public*.
+1. Jenkins is configured to create a Pipeline job on startup for a project hosted in GitLab. Login to GitLab and create a new project by cloning the demo project hosted on [GitHub](https://github.com/oraum/jee-7-demo-app "jee-7-demo-app"). Make sure the name of the project is *jee-7-demo-app* and that it is *public*.
 
 ## Access Tools
 
@@ -71,7 +70,7 @@ as well.
 | Jenkins | http://localhost:18080/ | no login required |
 | SonarQube | http://localhost:19000/ | admin/admin |
 | Nexus | http://localhost:18081 | admin/admin123 |
-| GitLab | http://localhost | root password to be created on first startup |
+| GitLab | http://localhost | root/5iveL!fe |
 | Selenium Grid | http://localhost:4444/grid/console | no login required |
 
 ## Screenshots
@@ -86,20 +85,12 @@ Here is an overview of all tools:
 
 ### Jenkins Jobs
 
-There are several jobs preconfigured in Jenkins.
+There are two Pipeline jobs preconfigured in Jenkins.
 The Jobs cover the following tasks:
+- SeedJob - this job is created via a Groovy script executed on Jenkins startup. The purpose of this job is to create *real* jobs by calling Job-DSL scripts which are located in its workspace. Currently only one job - called *jee-7-demo-app* - is created.
+- jee-7-demo-app - a Pipeline job for building the demo application.
 
-- Continuous Integration Build with Maven
-- Unit Tests
-- Static Source Analysis results are stored in SonarQube
-- JaCoCo Test Coverage
-- Deployment to Nexus
-- Jenkins Job DSL examples
-- Selenium UI Test
-
-![Conference App Jobs](screenshots/jenkins-jobs-1.png)
-
-![Conference App CI Job](screenshots/jenkins-jobs-2-conference-app-ci.png)
+![Jenkins Jobs](screenshots/jenkins.png)
 
 ### SonarQube Dashboard
 
