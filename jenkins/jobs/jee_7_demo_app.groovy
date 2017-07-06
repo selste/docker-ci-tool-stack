@@ -13,7 +13,7 @@ pipelineJob('jee-7-demo-app') {
           remote {
             url('http://gitlab/root/jee-7-demo-app.git')
           }
-          branch('master')
+          branch('wasline')
         }
       }
       scriptPath('Jenkinsfile')
