@@ -61,7 +61,24 @@ as well.
 
 #### GitLab
 
-1. Jenkins is configured to create a Pipeline job on startup for a project hosted in GitLab. Login to GitLab and create a new project by cloning the demo project hosted on [GitHub](https://github.com/oraum/jee-7-demo-app "jee-7-demo-app"). Make sure the name of the project is *jee-7-demo-app* and that it is *public*.
+Jenkins is configured to create a Pipeline job on startup for a project hosted in GitLab. Login to GitLab and create a new project by cloning the demo project hosted on [GitHub](https://github.com/oraum/jee-7-demo-app "jee-7-demo-app"). Make sure the name of the project is *jee-7-demo-app* and that it is *public*.
+
+### Nexus
+
+Nexus has to be configured to provide a private Docker Registry after first startup. Navigate to the *nexus/scripts* folder and execute *repositories.sh* - this will remove some of the preconfigured repositories (e.g. *nuget*) and set up the relevant entries for use with Docker.
+Output should look like this:
+```
+[steffen@linux scripts]$ ./repositories.sh
+Processing scripts nuget.json docker.json ...
+
+Creating Integration API Script from nuget.json ... done
+Creating Integration API Script from docker.json ... done
+Running aliases nuget docker ...
+
+Running alias nuget ... done
+Running alias docker ... done
+[steffen@linux scripts]$
+```
 
 ## Access Tools
 
