@@ -6,6 +6,8 @@ This GitHub repository contains Dockerfiles for running a set of Continuous Inte
 
 Original blog article on the CI Docker Container, https://blog.codecentric.de/en/2015/10/continuous-integration-platform-using-docker-container-jenkins-sonarqube-nexus-gitlab
 
+The setup has been altered with respect to the original configuration and includes a private Docker Registry (provided by Nexus) to receive images built from the Jenkins Pipeline job(s).
+
 
 ## With Docker Linux Native
 
