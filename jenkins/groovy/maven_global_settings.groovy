@@ -41,7 +41,7 @@ def configXml = """\
         </repository>
 				<repository>
 					<id>archetypes</id>
-					<url>http://nexus/content/groups/public/</url>
+					<url>http://nexus:8081/content/groups/public/</url>
 				</repository>
       </repositories>
       <pluginRepositories>
