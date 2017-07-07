@@ -122,16 +122,3 @@ The Jobs cover the following tasks:
 ### Selenium Grid
 
 ![Selenium Grid](screenshots/selenium-grid.png)
-
-## Testing Upgrades
-
-In order to test new versions, I prefer starting out with a blank VirtualBox image.
-That eliminates any side effects. Afterwards you can throw away the image.
-
-```
-# Create new image
-docker-machine create --driver virtualbox --virtualbox-memory 6000 docker-ci-v1
-
-# Configure shell environment
-eval $(docker-machine env docker-ci-v1)
-```
