@@ -9,6 +9,18 @@ def configXml = """\
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
 	<localRepository>/tmp/maven-cache</localRepository>
+  <servers>
+    <server>
+      <id>maven-snapshot-internal</id>
+      <username>admin</username>
+      <password>admin123</password>
+    </server>
+    <server>
+      <id>maven-release-internal</id>
+      <username>admin</username>
+      <password>admin123</password>
+    </server>
+  </servers>
   <mirrors>
     <mirror>
       <id>nexus</id>
