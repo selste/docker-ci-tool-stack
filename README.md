@@ -82,6 +82,14 @@ Running alias docker ... done
 [steffen@linux scripts]$
 ```
 
+### SonarQube
+
+1. Create an access token in SonarQube. Login, the navigate to the *Security* tab of the account's settings, and create a new token ![Tokens](screenshots/sonarqube-token.png) Don't forget to copy the gerneated token because this will be used in the second step to configure access to SonarQube for Jenkins
+2. In Jenkins click *Manage Jenkins*, then go to *Configure Jenkins*. Find the *SonarQube servers* section, click the *Add Sonarqube* button and populate the fields - don't forget to paste the token added in Step 1
+![SonarQube Connection](screenshots/jenkins-sonarqube.png)
+Save the changes
+
+
 ## Access Tools
 
 | *Tool* | *Link* | *Credentials* |
