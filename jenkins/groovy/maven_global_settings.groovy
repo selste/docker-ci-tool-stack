@@ -29,6 +29,11 @@ def configXml = """\
       <url>http://nexus:8081/repository/maven-public/</url>
     </mirror>
   </mirrors>
+
+  <pluginGroups>
+    <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+  </pluginGroups>
+
   <profiles>
     <profile>
       <id>nexus</id>
@@ -52,6 +57,17 @@ def configXml = """\
           <snapshots><enabled>true</enabled></snapshots>
         </pluginRepository>
       </pluginRepositories>
+    </profile>
+
+    <profile>
+      <id>sonar</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <!-- URL to server. Default value is http://localhost:9000, but we're using the alias here which is much nicer -->
+        <sonar.host.url>http://sonar:9000</sonar.host.url>
+      </properties>
     </profile>
   </profiles>
   <activeProfiles>
