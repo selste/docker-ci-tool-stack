@@ -1,5 +1,5 @@
 {
   "name": "docker",
   "type": "groovy",
-  "content": "repository.createDockerHosted('docker-hosted', null, 8500, 'default', true, false); repository.createDockerGroup('docker-public', null, null, ['docker-hosted'], false)"
+  "content": "repository.createDockerHosted('docker-hosted', 8501, 8500, 'default', true, false); repository.createDockerGroup('docker-public', null, null, ['docker-hosted'], false)"
 }
