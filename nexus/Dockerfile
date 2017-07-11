@@ -9,10 +9,10 @@ MAINTAINER Steffen Elste <steffen.elste@gmail.com>
 LABEL vendor=Sonatype \
       description="Nexus Repository OSS image"
 
-ARG NEXUS_VERSION=3.3.1-01
+ARG NEXUS_VERSION=3.4.0-02
 ARG NEXUS_DOWNLOAD_URL=https://download.sonatype.com/nexus/3/nexus-${NEXUS_VERSION}-unix.tar.gz
 
-ENV NEXUS_VERSION 3.3.1-01
+ENV NEXUS_VERSION 3.4.0-02
 ENV SONATYPE_DIR=/opt/sonatype
 ENV NEXUS_HOME=${SONATYPE_DIR}/nexus \
     NEXUS_DATA=/nexus-data \
