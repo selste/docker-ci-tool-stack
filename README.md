@@ -31,7 +31,7 @@ docker-compose version 1.14.0, build c7bdf9e
 ```
 # Clone Repository
 # Option A: clone via https
-git clone https://github.com/selste/docker-ci-tool-stack.git
+git clone https://github.com/selste/docker-ci-tool-stack.git --branch wasline
 
 # Option B: if you have your ssh keys configured for your GitHub account
 git clone git@github.com:selste/docker-ci-tool-stack.git
