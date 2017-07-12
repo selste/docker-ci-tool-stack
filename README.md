@@ -61,6 +61,13 @@ as well.
 
 ### Step 3 - Postinstallation
 
+#### Jenkins
+
+Two sets of credentials are created on first startup:
+1. 'nexus', used to access the Nexus Repository Proxy
+2. 'dockerhub', used to push the Docker image created when running the pre-defined Pipeline job to Docker Hub. This credentials set has to updated manually by replacing the id 'user' and the password with a combination valid for access, otherwise the build will fail.
+![Global credentials](screenshots/jenkins-credentials.png)
+
 #### GitLab
 
 Jenkins is configured to create a Pipeline job on startup for a project hosted in GitLab. Login to GitLab and create a new project by cloning the demo project hosted on [GitHub](https://github.com/oraum/jee-7-demo-app "jee-7-demo-app"). Make sure the name of the project is *jee-7-demo-app* and that it is *public*.
